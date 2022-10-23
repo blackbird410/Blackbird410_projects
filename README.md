@@ -1,4 +1,7 @@
 # Coding projects
 
-This a repository for my coding practice on python language.
-By the way I am a beginner at coding.
+This a repository for my coding practice on the python language.
+
+## Subheader
+
+Just tryin offline stuff...
