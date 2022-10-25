@@ -1,0 +1,12 @@
+1.- Quel est mon nom ?
+1) Neil
+2) Bob
+3) Carl
+2.- Quel est mon age ?
+1) 45
+2) 21
+3) 22
+1.- Quel est ton projet de carriere ?
+1) Computer Science
+2) Civil engineering
+3) Medecine

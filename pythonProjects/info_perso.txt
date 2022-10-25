@@ -1,0 +1,12 @@
+1.- Quel est votre nom ?
+1) Charles Darwin
+2) Albert Einstein
+3) Rigaud Neil Taison
+2.- Quel est votre age ?
+1) 32
+2) 16
+3) 21
+3.- Quel est votre plat prefere ?
+1) Riz au legumes
+2) Ble au pois noir
+3) Mais
