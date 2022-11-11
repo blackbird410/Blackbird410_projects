@@ -1,8 +1,7 @@
 #!\bin\env python
 
 def arithmetic_arranger(s, b=False):
-    """This function takes a string of mathematical operations and a boolean as parameters 
-    and return an arranged string. It returns the value of calculation if the boolean is set to True."""
+    """This function takes a string of mathematical operations and a boolean as parameters and return an arranged string. It returns the value of calculation if the boolean is set to True."""
 
   
     try:
@@ -10,7 +9,14 @@ def arithmetic_arranger(s, b=False):
         return 'Error: Too many problems.'
 
       l = [x.split(" ") for x in s]
+      c = 0
+      f_l = ""
+      s_l = ""
+      l_l = ""
+      c_l = ""
+      
       for x in l:
+        c += 1
         i = len(x[0])
         j = len(x[2])
 
@@ -29,20 +35,23 @@ def arithmetic_arranger(s, b=False):
                 
         if i >= j:
           x[0] = "  " + x[0]
-          x[2] = " " + (i-j) * " " + x[2]                
+          x[2] = " " + (i-j) * " " + x[2]
         if i < j:
           x[0] = "  " + (j-i) * " " + x[0]
           x[2] = " " + x[2]
-            
-        x.append((max(i, j)+2) * "-")
-        x.append(" " * (max(i,j)-len(t) + 2) + t )   
 
-      f_l = "    ".join(x[0] for x in l)
-      s_l = "    ".join(x[1] + x[2] for x in l)
-      l_l = "    ".join(x[3] for x in l)
+        if c == 1:
+          f_l += x[0]
+          s_l += x[1] + x[2]
+          l_l += (max(i, j)+2) * "-"
+          c_l += " " * (max(i,j)-len(t) + 2) + t 
+        else:
+          f_l += "    " + x[0]
+          s_l += "    " + x[1] + x[2]
+          l_l += "    " + (max(i, j)+2) * "-"
+          c_l += " " * (max(i,j)-len(t) + 6) + t
 
       if b:
-        c_l = "    ".join(x[4] for x in l)
         return f_l + "\n" + s_l + "\n" + l_l + "\n" + c_l
       else:
         return f_l + "\n" + s_l + "\n" + l_l 
