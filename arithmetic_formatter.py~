@@ -1,8 +1,7 @@
 #!\bin\env python
 
 def arithmetic_arranger(s, b=False):
-    """This function takes a string of mathematical operations and a boolean as parameters and return an arranged string. 
-    It returns the value of calculation if the boolean is set to True."""
+    """This function takes a string of mathematical operations and a boolean as parameters and return an arranged string. It returns the value of calculation if the boolean is set to True."""
 
   
     try:
