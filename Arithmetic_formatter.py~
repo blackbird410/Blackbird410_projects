@@ -5,11 +5,22 @@ def arithmetic_arranger(s, b=False):
     and return an arranged string. It returns the value of calculation if the boolean is set to True."""
     
     try:
+        if len(s) > 5:
+            return "Error : Too many problems"
+
         l = [x.split(" ") for x in s]
         
         for x in l:
             i = len(x[0])
             j = len(x[2])
+
+            # Checking errors
+            if x[1] not in "+-":
+                return "Error : Operator must be \'+\' or \'-\'."
+            if not x[0].isdigit() or not x[2].isdigit():
+                return "Error : Numbers must only contain digits."
+            if i > 4 or j > 4:
+                return "Error : Numbers cannot be more than four digits."
 
             if i >= j:
                 x[0] = "  " + x[0]
