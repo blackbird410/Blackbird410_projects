@@ -30,21 +30,21 @@ def arithmetic_arranger(s, b=False):
                 x[2] = " " + x[2]
             x.append((max(i, j)+2) * "-")
             x.append("  " + str((int(x[0]) + int(x[2]))) if x[1] == "+" else "  " + str(int(x[0]) - int(x[2])))
-       
+
+        print(f"\n{l}\n\n")
+
         f_l = "    ".join(x[0] for x in l)
         s_l = "    ".join(x[1] + x[2] for x in l)
         l_l = "    ".join(x[3] for x in l)
 
         if b:
             c_l = "    ".join(x[4] for x in l)
-            print(f"{f_l}\n{s_l}\n{l_l}\n{c_l}")
+            return "{}\n{}\n{}\n{}".format(f_l, s_l, l_l, cl)
         else:
-            print(f"{f_l}\n{s_l}\n{l_l}")       
-
+            return "{}\n{}\n{}".format(f_l, s_l, l_l)
 
     except:
         print("WRONG ENTRY, PLEASE TRY AGAIN WITH A CORRECT ONE.")
 
 
-arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"], True)
-
+print(arithmetic_arranger(['32 + 698', '3801 - 2', '45 + 43', '123 + 49']))
