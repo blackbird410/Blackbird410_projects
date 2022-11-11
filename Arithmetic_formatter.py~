@@ -39,9 +39,9 @@ def arithmetic_arranger(s, b=False):
 
         if b:
             c_l = "    ".join(x[4] for x in l)
-            return "{}\n{}\n{}\n{}".format(f_l, s_l, l_l, cl)
+            return f_l + "\n" + s_l + "\n" + l_l + "\n" + cl
         else:
-            return "{}\n{}\n{}".format(f_l, s_l, l_l)
+            return f_l + "\n" + s_l + "\n" + l_l 
 
     except:
         print("WRONG ENTRY, PLEASE TRY AGAIN WITH A CORRECT ONE.")
