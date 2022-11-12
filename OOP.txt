@@ -1,0 +1,191 @@
+
+OBJECT ORIENTED PROGRAMMING PYTHON notes from FreeCodeCamp.org
+--------------------------------------------------------------
+
+In Python, each data type is an object that has been instantiated earlier by
+some class.
+
+Syntax of creating an instance or object
+----------------------------------------
+# Definition of the class
+-------------------------
+class Item:
+    pass
+
+=> item1 = Item()
+
+Creating attributes for a class
+-------------------------------
+=> item1.name = "Phone"
+=> item1.price = 100
+=> item1.quantity = 5
+
+
+Creating methods 
+----------------
+Methods are functions that are inside classes.
+
+Syntax
+------
+class Item:
+=>  def calc_total_price(self, x, y):
+        return x * y
+
+We call the method as : 
+=> item1.calc_total_price(item1.price, item1.quantity)
+
+
+The __init__(self) method
+----------------------
+ It is part of a collection called magic methods used when defining a class
+structure. It is called each time you declare an instance.
+
+Syntax
+------
+def __init__(self, name: str, price: float, quantity: int):
+    # Run validations to the received arguments
+    assert type(name) == str, f"The name {name} is not correct."
+    assert price > 0, f"{price} is not a valid price."
+    assert quantity >=0, f"{quantity} is not a valid quantity."
+
+    # Assigning the attributes from there.
+    self.name = name
+    self.price = price
+    self.quantity = quantity
+
+
+Class attributes
+----------------
+Attributes that are global or available across all the instances. It belongs
+to the class.
+
+
+The __dict__ magic attribute
+----------------------------
+It returns a dictionary of all the attributes that belongs to the object applied.
+
+
+The __repr__ magic method
+-------------------------
+It represents a created instance or object. 
+
+
+Class method
+-------------
+It can be accessed from class level only. To convert it we need to use a
+decorator. The decorator changes the behavior of the function by calling them
+(decorators) before the definition line of the function.
+
+Syntax
+------
+@decorator
+def function_name():
+    #code here
+
+For example: 
+@classmethod
+def instantiate_from_csv():
+    with open("items.csv", "r") as f:
+        reader = csv.DictReader(f)
+        items = list(reader)
+    for item in items:
+        Item(
+             name=item.get('name'),
+             price=float(item.get('price')),
+             quantity=int(item.get('quantity')),
+        )
+
+
+The @staticmethod
+------------------
+Unlike the @classmethod, this method never sends in the background the
+instance as a first argument. It should be used when something needs to have a
+relationship with the class, but not something that must be unique per
+instance.
+
+Syntax
+------
+@staticmethod
+def is_integer(num):
+    if isinstance(num, float):
+        return num.is_integer()
+    elif isinstance(num, int):
+        return True
+    else:
+        return False
+
+
+Inheritance in OOP
+------------------
+It allows a new class to inherit or share the properties of a previous class.
+
+Syntax
+------
+class Phone(Item):
+    def __init__(self, name: str, price: float, quantity: int, broken_phones =
+0):
+    super().__init__(
+        name, price, quantity
+    )
+
+    # Run validations to the received arguments
+    assert broken_phones >=0, f"{broken_phones} is not a valid quantity."
+
+    # Assigning the attributes from there.
+    self.broken_phones = broken_phones
+
+
+The super function
+------------------
+It allows us to have full access to all the attributes of the parent class.
+
+
+The 4 principles of OOP
+=======================
+=> ENCAPSULATION
+This principle refers to a mechanism of restricting direct access to some
+attributes in a program.
+
+=> ABSTRACTION
+It is a concept in OOP that only shows the necessary attributes and hides the
+unnecessary informations.
+
+=> INHERITANCE
+It is an OOP concept that allows us to reuse code across our classes.
+
+=> POLYMORPHISM
+It is a very important concept in OOP. It refers to the use of a single type
+of entity to represent different types in different scenarios.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
