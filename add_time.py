@@ -52,15 +52,25 @@ def add_time(current_time, time_to_add, start_day=""):
                 return f"{hrs}:{mns} AM"
     else:
         if n_day == 1:
+          if not start_day:
             if hrs == 12:
-                return f"{hrs}:{mns} AM (next day)"
+              return f"{hrs}:{mns} AM (next day)"
             elif hrs > 12:
                 return f"{hrs-12}:{mns} PM (next day)"
             else:
                 return f"{hrs}:{mns} AM (next day)"
+          else:
+            l = list(days.keys())
+            n = days[start_day]
+            if hrs == 12:
+              return f"{hrs}:{mns} AM, {l[n]} (next day)"
+            elif hrs > 12:
+                return f"{hrs-12}:{mns}, PM {l[n]} (next day)"
+            else:
+                return f"{hrs}:{mns} AM, {l[n]} (next day)"
         else:
             if start_day:
-                c_day = days[start_day] + n_day
+                c_day = days[start_day] + (n_day % 7)
                 if c_day > 7:
                     c_day -= 7
                 for x,y in days.items():
@@ -75,25 +85,15 @@ def add_time(current_time, time_to_add, start_day=""):
                             else:
                                 return f"{hrs}:{mns} AM, {x} ({n_day} days later)"
             else:
-                if hrs >= 12:
-                    return f"{hrs-12}:{mns} PM ({n_day} days later)"
+              if hrs == 12:
+                return f"12:{mns} PM ({n_day} days later)"
+              elif hrs > 12:
+                return f"{hrs-12}:{mns} PM ({n_day} days later)"
+              else:
+                if hrs == 0:
+                  return f"12:{mns} AM ({n_day} days later)"
                 else:
-                    return f"{hrs}:{mns} AM ({n_day} days later)"
+                  return f"{hrs}:{mns} AM ({n_day} days later)"
 
 
-print(add_time("3:00 PM", "3:10"))
-print(add_time("11:30 AM", "2:32", "Monday"))
-# Returns: 2:02 PM, Monday
-
-print(add_time("11:43 AM", "00:20"))
-# Returns: 12:03 PM
-
-print(add_time("10:10 PM", "3:30"))
-# Returns: 1:40 AM (next day)
-
-print(add_time("11:43 PM", "24:20", "tueSday"))
-# Returns: 12:03 AM, Thursday (2 days later)
-
-print(add_time("6:30 PM", "205:12"))
-# Returns: 7:42 AM (9 days later)
-
+print(add_time("8:16 PM", "466:02", "tuesday"))
