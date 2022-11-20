@@ -1,8 +1,5 @@
 #!\bin\env python
 
-import csv
-
-
 
 class Category:
     ledger = []
@@ -10,14 +7,20 @@ class Category:
     def __init__(self, name = ""):
         self.name = name
 
-    def deposit(self, amount, description="", to=""):
+    def deposit(self, amount, description=""):
+        """"This function appends a deposit of an amount to the class ledger. It takes 1 required 
+        parameter which is the amount and two optional parameters which are the description of the 
+        deposit and the category it is wired to."""
+
         assert amount > 0, f"The amount {amount} is invalid."
-        if to:
-            Category.ledger.append({"name": to[0].upper()+to[1:],"amount": amount, "description": description})
-        else:
-            Category.ledger.append({"name": self.name,"amount": amount, "description": description})
+        
+        Category.ledger.append({"name": self.name,"amount": amount, "description": description})
+    
     def withdraw(self, amount, description=""):
-        assert amount >= 0, f"The amount {amount} is invalid."
+        """This function appends a withdrawal to the ledger list with a negative amount. It takes 1
+        required parameter and an optional one : the amount of withdrawal and a description as a string.
+        """
+        assert amount > 0, f"The amount {amount} is invalid."
 
         if not self.check_funds(amount):
             return False
@@ -25,6 +28,8 @@ class Category:
         return True
 
     def get_balance(self):
+        """This function returns the balance of a specified instance of the class category."""
+
         l = Category.ledger
 
         if l == []:
@@ -38,16 +43,20 @@ class Category:
             return bal
 
     def transfer(self, amount, obj):
+        """This function use two methods to transfer an amount between two categories. It takes two 
+        required parameters which are the amount and the category it should transfer the amoount."""
 
         b = self.check_funds(amount)
+        
         if b :
             self.withdraw(amount, f"Transfer to {obj.name}")
-            self.deposit(amount, f"Transfer from {self.name}", to=obj.name)
+            obj.deposit(amount, f"Transfer from {self.name}")
             return True
+
         return False
 
     def check_funds(self, amount):
-        return amount < self.get_balance()
+        return amount <= self.get_balance()
 
     def __repr__(self):
         l = Category.ledger
@@ -75,10 +84,11 @@ class Category:
 
 
 def create_spend_chart(l_cat:[]):
+    """This function creates a chart representing the expenses of each category."""
+
     rs = ""
     l = Category.ledger
     wd_per = []
-    c = 0
     max_l = 1
     n_l = []
 
@@ -89,7 +99,7 @@ def create_spend_chart(l_cat:[]):
     for cat in l_cat:
         s = 0
         for x in l:
-            if x['name'].lower() == cat.name.lower():
+            if x['name'] == cat.name:
                 if x['amount'] < 0:
                     s += x['amount']
         tampon = list(cat.name) 
