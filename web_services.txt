@@ -1,0 +1,34 @@
+Notes on Using Web services (XML and JSON)
+-------------------------------------------
+1- XML
+------
+XML is used generally to mark up data across the network. It stands for
+eXtensible Markup Language.
+
+Principal concepts:
+-------------------
+* Tags
+* Attributes
+* Serialize / De-Serialize
+
+N.B : Serialization is the act of taking data inside of a computer in one
+programming language, setting it up for transport, transporting across the
+internet, taking it back apart and turning it back into the formal data it
+needs to be.
+
+- What is XML Schema ?
+----------------------
+It is a language that allows you to decide whether or not a particular XML
+document meets a contract, an arrangement.
+
+
+2- JavaScript Object Notation (JSON)
+------------------------------------
+It is way easier and approachable than XML :).
+
+
+- Service oriented approach
+---------------------------
+It is used to solve complex application problem where the data is not present
+in only one computer system. For example if it is spread out over the
+internet, connected by the internet or internal network.
