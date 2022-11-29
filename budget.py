@@ -3,6 +3,7 @@
 
 class Category:
     ledger = []
+    reg = []
 
     def __init__(self, name = ""):
         self.name = name
@@ -14,8 +15,9 @@ class Category:
 
         assert amount > 0, f"The amount {amount} is invalid."
         
-        Category.ledger.append({"name": self.name,"amount": amount, "description": description})
-    
+        Category.ledger.append({"amount": amount, "description": description})
+        Category.reg.append(self.name)
+
     def withdraw(self, amount, description=""):
         """This function appends a withdrawal to the ledger list with a negative amount. It takes 1
         required parameter and an optional one : the amount of withdrawal and a description as a string.
@@ -24,22 +26,25 @@ class Category:
 
         if not self.check_funds(amount):
             return False
-        Category.ledger.append({"name": self.name,"amount": -amount, "description": description})
+        Category.ledger.append({"amount": -amount, "description": description})
+        Category.reg.append(self.name)
+
         return True
 
     def get_balance(self):
         """This function returns the balance of a specified instance of the class category."""
 
         l = Category.ledger
+        r = Category.reg
 
         if l == []:
             return 0
         else:
             bal = 0
-            for x in l:
-                if x['name'] != self.name:
+            for i in range(len(l)):
+                if r[i] != self.name:
                     continue
-                bal += x.get("amount")
+                bal += l[i].get("amount")
             return bal
 
     def transfer(self, amount, obj):
@@ -60,13 +65,14 @@ class Category:
 
     def __repr__(self):
         l = Category.ledger
+        r = Category.reg
         l_amount = []
         rs = ""
 
-        for x in l:
-            if x['name'] != self.name:
+        for i in range(len(l)):
+            if r[i] != self.name:
                 continue
-
+            x = l[i]
             s = len(x['description'])
             a = str(format(x['amount'], '.2f'))
             a = (7-len(a)) * " " + a
@@ -88,9 +94,14 @@ def create_spend_chart(l_cat:[]):
 
     rs = ""
     l = Category.ledger
+    r = Category.reg
     wd_per = []
     max_l = 1
     n_l = []
+
+    a = []
+    for i in range(len(l)):
+        a.append({"name": r[i], "amount": l[i]["amount"], "description": l[i]["description"]})
 
     for x in l_cat:
         if len(str(x.name)) > max_l:
@@ -98,7 +109,7 @@ def create_spend_chart(l_cat:[]):
 
     for cat in l_cat:
         s = 0
-        for x in l:
+        for x in a:
             if x['name'] == cat.name:
                 if x['amount'] < 0:
                     s += x['amount']
