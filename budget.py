@@ -9,21 +9,13 @@ class Category:
         self.name = name
 
     def deposit(self, amount, description=""):
-        """"This function appends a deposit of an amount to the class ledger. It takes 1 required 
-        parameter which is the amount and two optional parameters which are the description of the 
-        deposit and the category it is wired to."""
 
-        assert amount > 0, f"The amount {amount} is invalid."
-        
         Category.ledger.append({"amount": amount, "description": description})
         Category.reg.append(self.name)
+        print(f"\n****Deposit of {amount} for {self.name}.\nTransactions : {Category.ledger}\n\n")
+
 
     def withdraw(self, amount, description=""):
-        """This function appends a withdrawal to the ledger list with a negative amount. It takes 1
-        required parameter and an optional one : the amount of withdrawal and a description as a string.
-        """
-        assert amount > 0, f"The amount {amount} is invalid."
-
         if not self.check_funds(amount):
             return False
         Category.ledger.append({"amount": -amount, "description": description})
@@ -32,8 +24,6 @@ class Category:
         return True
 
     def get_balance(self):
-        """This function returns the balance of a specified instance of the class category."""
-
         l = Category.ledger
         r = Category.reg
 
@@ -48,9 +38,6 @@ class Category:
             return bal
 
     def transfer(self, amount, obj):
-        """This function use two methods to transfer an amount between two categories. It takes two 
-        required parameters which are the amount and the category it should transfer the amoount."""
-
         b = self.check_funds(amount)
         
         if b :
@@ -128,27 +115,23 @@ def create_spend_chart(l_cat:[]):
         for j in range(len(l_cat)):
             rs += wd_per[j][i]
         rs += "\n"
-    
+
     return "Percentage spent by category\n" + rs
 
 
-food = Category("Food")
-food.deposit(1000, "initial deposit")
-food.withdraw(10.15, "groceries")
-food.withdraw(15.89, "restaurant and more food for dessert")
-print(food.get_balance())
-clothing = Category("Clothing")
-food.transfer(50, clothing)
-clothing.withdraw(25.55)
-clothing.withdraw(100)
-auto = Category("Auto")
-auto.deposit(1000, "initial deposit")
-auto.withdraw(15)
+#food = Category("Food")
+#food.deposit(1000, "initial deposit")
+#food.withdraw(10.15, "groceries")
+#food.withdraw(15.89, "restaurant and more food for dessert")
+#print(food.get_balance())
+#clothing = Category("Clothing")
+#food.transfer(50, clothing)
+#clothing.withdraw(25.55)
+#clothing.withdraw(100)
+#auto = Category("Auto")
+#auto.deposit(1000, "initial deposit")
+#auto.withdraw(15)
 
-print(food)
-print(clothing)
-print(auto)
-
-print(f"**********BAR_CHART**********\n{create_spend_chart([food, clothing, auto])}")
+#print(f"**********BAR_CHART**********\n{create_spend_chart([food, clothing, auto])}")
 
 
