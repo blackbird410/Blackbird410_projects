@@ -26,32 +26,18 @@ class Category:
         return True
 
     def get_balance(self):
-        l = Category.ledger
-        r = Category.reg
-
-        print(f"Testing balance : {self.balance}") 
-
-        if l == []:
-            return 0
-        else:
-            bal = 0
-            for i in range(len(l)):
-                if r[i] != self.name:
-                    continue
-                bal += l[i].get("amount")
-            return bal
+        return self.balance
 
     def transfer(self, amount, obj):        
         if self.check_funds(amount):
             self.withdraw(amount, f"Transfer to {obj.name}")
             obj.deposit(amount, f"Transfer from {self.name}")
             return True
-
-        print("ERROR : Unable to transfer the amount.")
-        return False
+        else:
+            print("ERROR : Unable to transfer the amount.")
+            return False
 
     def check_funds(self, amount):
-        print(f"Actual balance : {self.get_balance()} | Testing Balance: {self.balance}\n")
         return amount <= self.get_balance()
 
     def __repr__(self):
@@ -89,10 +75,22 @@ def create_spend_chart(l_cat:[]):
     wd_per = []
     max_l = 1
     n_l = []
+    m = 0
+    init_depo = []
 
     a = []
+
     for i in range(len(l)):
         a.append({"name": r[i], "amount": l[i]["amount"], "description": l[i]["description"]})
+
+    counter = 0
+    for x in l_cat:
+        while counter < len(a):
+            if a[counter]['name'] == x.name:
+                init_depo.append(l[counter]['amount'])
+                counter = len(a)
+            counter += 1
+        counter = 0 
 
     for x in l_cat:
         if len(str(x.name)) > max_l:
@@ -104,10 +102,16 @@ def create_spend_chart(l_cat:[]):
             if x['name'] == cat.name:
                 if x['amount'] < 0:
                     s += x['amount']
+                    if m < -x['amount']:
+                        m = -x['amount']
         tampon = list(cat.name) 
         n_l = [f" {y} " for y in tampon]
-        
-        c_bar = int(round(-s/120,1)*10 + 1)
+
+        m = len(str(m))
+
+        c_bar = int(round(-s/init_depo[counter],1)*10 + 1)
+        counter += 1
+        print(c_bar)
         bar = ["   "] * (11 - c_bar) + c_bar * [" o "] + ['---'] + n_l + (max_l - len(x['name'])) * ["   "]
         wd_per.append(bar)
 
