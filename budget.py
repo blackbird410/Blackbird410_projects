@@ -98,7 +98,7 @@ def create_spend_chart(l_cat:[]):
         m = len(str(m))
 
         c_bar = int(round(s/exp_sum, 2)*10) + 1
-        bar = ["   "] * (12 - c_bar) + c_bar * [" o "] + ['---'] + n_l + (max_l+1 - len(cat.name)) * ["   "]
+        bar = ["   "] * (11 - c_bar) + c_bar * [" o "] + ['---'] + n_l + (max_l+1 - len(cat.name)) * ["   "]
         wd_per.append(bar)
 
     bar_measures = ['100|', ' 90|', ' 80|', ' 70|', ' 60|', ' 50|', ' 40|', ' 30|', ' 20|', ' 10|', '  0|']
@@ -108,9 +108,11 @@ def create_spend_chart(l_cat:[]):
         rs += bar_measures[i]
         for j in range(len(l_cat)):
             rs += wd_per[j][i]
-        rs += "\n"
-
-    return "Percentage spent by category\n" + rs[:-2]
+        if rs[-1] == "-":
+            rs += "-\n"
+        else:
+            rs += " \n"
+    return "Percentage spent by category\n" + rs[:-2] + " "
 
 
 #food = Category("Food")
