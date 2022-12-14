@@ -2,25 +2,23 @@
 
 
 class Category:
-    ledger = []
-    reg = []
 
     def __init__(self, name = ""):
         self.name = name
         self.balance = 0
+        self.ledger = []
 
     def deposit(self, amount, description=""):
-
-        Category.ledger.append({"amount": amount, "description": description})
-        Category.reg.append(self.name)
+        if description == "deposit" or description=="":
+            self.ledger = []
+        self.ledger.append({"amount": amount, "description": description})
         self.balance += amount
         
 
     def withdraw(self, amount, description=""):
         if not self.check_funds(amount):
             return False
-        Category.ledger.append({"amount": -amount, "description": description})
-        Category.reg.append(self.name)
+        self.ledger.append({"amount": -amount, "description": description})
         self.balance -= amount
 
         return True
@@ -41,15 +39,11 @@ class Category:
         return amount <= self.get_balance()
 
     def __repr__(self):
-        l = Category.ledger
-        r = Category.reg
+        l = self.ledger
         l_amount = []
         rs = ""
 
-        for i in range(len(l)):
-            if r[i] != self.name:
-                continue
-            x = l[i]
+        for x in l:
             s = len(x['description'])
             a = str(format(x['amount'], '.2f'))
             a = (7-len(a)) * " " + a
@@ -70,8 +64,6 @@ def create_spend_chart(l_cat:[]):
     """This function creates a chart representing the expenses of each category."""
 
     rs = ""
-    l = Category.ledger
-    r = Category.reg
     wd_per = []
     max_l = 1
     n_l = []
@@ -79,20 +71,19 @@ def create_spend_chart(l_cat:[]):
     init_depo = []
 
     a = []
-
-    for i in range(len(l)):
-        a.append({"name": r[i], "amount": l[i]["amount"], "description": l[i]["description"]})
+    for x in l_cat:
+        for y in x.ledger:
+            a.append({"name": x.name, "amount": y["amount"], "description": y["description"]})
 
     counter = 0
     for x in l_cat:
         while counter < len(a):
             if a[counter]['name'] == x.name:
-                init_depo.append(l[counter]['amount'])
+                init_depo.append(a[counter]['amount'])
                 counter = len(a)
             counter += 1
         counter = 0 
 
-    for x in l_cat:
         if len(str(x.name)) > max_l:
             max_l = len(str(x.name))
 
