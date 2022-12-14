@@ -111,8 +111,7 @@ def create_spend_chart(l_cat:[]):
 
         c_bar = int(round(-s/init_depo[counter],1)*10 + 1)
         counter += 1
-        print(c_bar)
-        bar = ["   "] * (11 - c_bar) + c_bar * [" o "] + ['---'] + n_l + (max_l - len(x['name'])) * ["   "]
+        bar = ["   "] * (11 - c_bar) + c_bar * [" o "] + ['---'] + n_l + (max_l - len(cat.name)) * ["   "]
         wd_per.append(bar)
 
     bar_measures = ['100|', ' 90|', ' 80|', ' 70|', ' 60|', ' 50|', ' 40|', ' 30|', ' 20|', ' 10|', '  0|']
