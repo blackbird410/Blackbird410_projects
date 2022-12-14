@@ -7,25 +7,29 @@ class Category:
 
     def __init__(self, name = ""):
         self.name = name
+        self.balance = 0
 
     def deposit(self, amount, description=""):
 
         Category.ledger.append({"amount": amount, "description": description})
         Category.reg.append(self.name)
-        print(f"\n****Deposit of {amount} for {self.name}.\nTransactions : {Category.ledger}\n\n")
-
+        self.balance += amount
+        
 
     def withdraw(self, amount, description=""):
         if not self.check_funds(amount):
             return False
         Category.ledger.append({"amount": -amount, "description": description})
         Category.reg.append(self.name)
+        self.balance -= amount
 
         return True
 
     def get_balance(self):
         l = Category.ledger
         r = Category.reg
+
+        print(f"Testing balance : {self.balance}") 
 
         if l == []:
             return 0
@@ -37,17 +41,17 @@ class Category:
                 bal += l[i].get("amount")
             return bal
 
-    def transfer(self, amount, obj):
-        b = self.check_funds(amount)
-        
-        if b :
+    def transfer(self, amount, obj):        
+        if self.check_funds(amount):
             self.withdraw(amount, f"Transfer to {obj.name}")
             obj.deposit(amount, f"Transfer from {self.name}")
             return True
 
+        print("ERROR : Unable to transfer the amount.")
         return False
 
     def check_funds(self, amount):
+        print(f"Actual balance : {self.get_balance()} | Testing Balance: {self.balance}\n")
         return amount <= self.get_balance()
 
     def __repr__(self):
