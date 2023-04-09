@@ -1,0 +1,5 @@
+Structure reactions
+_____________________________
+   Node Reaction X Reaction Y
+0     3        64.      -128.
+

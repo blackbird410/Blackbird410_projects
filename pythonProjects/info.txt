@@ -1,8 +1,0 @@
-1.- Quel est votre nom ?
-1) Nicolas Tesla
-2) Isaac Newton
-3) Neil Taison Rigaud
-2.- Quel est votre plus grand passe temps ?
-1) Le football
-2) Les dessins-animes
-3) La programmation
